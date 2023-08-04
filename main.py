@@ -7,7 +7,7 @@ import config
 
 from langchain.chat_models import ChatOpenAI
 from langchain.agents import initialize_agent, AgentType, load_tools, StructuredChatAgent, AgentExecutor
-from langchain.tools import Tool, StructuredTool
+from langchain.tools import Tool, StructuredTool, PythonREPLTool
 from langchain.agents.agent_toolkits import FileManagementToolkit
 from langchain.utilities import GoogleSerperAPIWrapper as GSA
 from langchain.chains import LLMChain, ConversationChain
