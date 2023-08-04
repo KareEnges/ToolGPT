@@ -3,6 +3,7 @@ from langchain.agents import AgentType, initialize_agent, AgentExecutor
 from langchain.callbacks.streamlit import StreamlitCallbackHandler
 
 import main
+import config
 
 
 def init(tools_select):
