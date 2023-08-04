@@ -1,6 +1,3 @@
 langchain
 streamlit
 duckduckgo-search
-chromadb
-lark
-pyttsx3
