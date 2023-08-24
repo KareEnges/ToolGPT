@@ -13,7 +13,7 @@ def init(tools_select):
             tool.append(i)
     global agent
     agent = AgentExecutor.from_agent_and_tools(
-        agent=main.agent, tools=tool, verbose=True, memory=main.memory
+        agent=main.get_agent(tool), tools=tool, verbose=True, memory=main.memory
     )
 
 
