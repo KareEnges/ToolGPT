@@ -61,23 +61,26 @@ tools += [CreateCode.CreateCodeTool, PythonREPLTool()]
 
 memory = ConversationBufferMemory(memory_key="chat_history")
 
-verbose = config.verbose
+def get_agent(tools):
+    verbose = config.verbose
 
-prefix = """Have a conversation with a human, answering the following questions as best you can. You have access to 
-the following tools:"""
-suffix = """Begin!"
+    prefix = """Have a conversation with a human, answering the following questions as best you can. You have access to 
+    the following tools:"""
+    suffix = """Begin!"
+    
+    {chat_history}
+    Question: {input}
+    {agent_scratchpad}"""
 
-{chat_history}
-Question: {input}
-{agent_scratchpad}"""
+    prompt = StructuredChatAgent.create_prompt(
+        tools,
+        prefix=prefix,
+        suffix=suffix,
+        input_variables=["input", "chat_history", "agent_scratchpad"],
+    )
 
-prompt = StructuredChatAgent.create_prompt(
-    tools,
-    prefix=prefix,
-    suffix=suffix,
-    input_variables=["input", "chat_history", "agent_scratchpad"],
-)
+    llm_chain = LLMChain(llm=llm, prompt=prompt)
+    agent = StructuredChatAgent(llm_chain=llm_chain, tools=tools, verbose=True)
+    return agent
 
-llm_chain = LLMChain(llm=llm, prompt=prompt)
-agent = StructuredChatAgent(llm_chain=llm_chain, tools=tools, verbose=True)
 
